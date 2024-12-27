@@ -1,0 +1,7 @@
+[debug] > Exec(compile, None, None)
+[debug] Evaluating tasks: Compile / compile
+[debug] Running task... Cancel: Signal, check cycles: false, forcegc: true
+[info] compiling 1 Scala source to C:\Users\HP\Desktop\big\real-time-twitter-analytics\target\scala-2.13\classes ...
+[info] done compiling
+[success] Total time: 12 s, completed ٢٧‏/١٢‏/٢٠٢٤، ٤:٣٣:٤٧ م
+[debug] > Exec(idea-shell, None, None)
