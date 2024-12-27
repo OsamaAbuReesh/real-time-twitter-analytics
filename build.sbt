@@ -1,7 +1,6 @@
 name := "RealTimeTwitterAnalytics"
 
 version := "0.1"
-
 scalaVersion := "2.13.12"
 
 // Combine all dependencies into a single sequence

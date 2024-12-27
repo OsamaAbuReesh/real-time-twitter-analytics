@@ -6,7 +6,6 @@ import org.geotools.data.shapefile.ShapefileDataStore
 import org.geotools.data.simple.SimpleFeatureSource
 import org.locationtech.jts.geom.{Coordinate, GeometryFactory, Point}
 import org.geotools.geometry.jts.JTSFactoryFinder
-
 import scala.collection.JavaConverters._
 import java.util.Properties
 import java.time.Duration
