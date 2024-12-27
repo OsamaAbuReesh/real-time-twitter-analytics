@@ -2,11 +2,17 @@ import org.apache.kafka.clients.consumer.{ConsumerConfig, ConsumerRecords, Kafka
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 import org.json4s._
 import org.json4s.jackson.JsonMethods._
+import org.geotools.data.shapefile.ShapefileDataStore
+import org.geotools.data.simple.SimpleFeatureSource
+import org.locationtech.jts.geom.{Coordinate, GeometryFactory, Point}
+import org.geotools.geometry.jts.JTSFactoryFinder
+
 import scala.collection.JavaConverters._
 import java.util.Properties
 import java.time.Duration
+import java.io.File
 
-object TweetLocationConsumer {
+object GeoLocationConsumer {
   def main(args: Array[String]): Unit = {
     val inputTopic = "cleaned_tweets_topic" // Kafka topic containing cleaned tweets
     val outputTopic = "location_tweets_topic" // Kafka topic for tweets with location details
@@ -33,6 +39,14 @@ object TweetLocationConsumer {
     println("✅ Kafka Consumer connected to localhost:9092")
     println("✅ Kafka Producer ready to send to topic: " + outputTopic)
 
+    // Path to the Shapefile
+    val shapefilePath = "C:/Users/HP/Downloads/ne_10m_admin_0_countries/ne_10m_admin_0_countries.shp"
+    val shapefile = new ShapefileDataStore(new File(shapefilePath).toURI.toURL)
+    val featureSource: SimpleFeatureSource = shapefile.getFeatureSource
+
+    // GeoTools setup
+    val geometryFactory: GeometryFactory = JTSFactoryFinder.getGeometryFactory
+
     implicit val formats: DefaultFormats.type = DefaultFormats
 
     try {
@@ -41,7 +55,6 @@ object TweetLocationConsumer {
         for (record <- records.asScala) {
           val cleanedTweet = record.value()
 
-          // Debugging received data
           println("🚀 Received cleaned tweet:")
           println(cleanedTweet)
 
@@ -53,31 +66,47 @@ object TweetLocationConsumer {
             val geo = parsedTweet.get("geo") match {
               case Some(map: Map[String, Any]) =>
                 map.get("coordinates") match {
-                  case Some(coords: List[Double]) =>
-                    val latitude = coords.headOption.getOrElse(0.0)
-                    val longitude = coords.lift(1).getOrElse(0.0)
-                    s"Lat: $latitude, Lon: $longitude"
-                  case _ => "Coordinates not available"
+                  case Some(coords: List[Double]) => coords
+                  case _ => Nil
                 }
-              case _ => "Geo data not available"
+              case _ => Nil
             }
 
-            // Determine country based on simple rules (example only)
-            val country = geo match {
-              case g if g.contains("USA") => "United States"
-              case g if g.contains("UK") => "United Kingdom"
-              case g if g.contains("Canada") => "Canada"
-              case _ => "Unknown Country"
+            val country = if (geo.nonEmpty) {
+              val latitude = geo.head
+              val longitude = geo(1)
+              val point: Point = geometryFactory.createPoint(new Coordinate(longitude, latitude))
+
+              // Match point with country from Shapefile
+              val features = featureSource.getFeatures
+              val iterator = features.features()
+              var foundCountry = "Unknown Country"
+
+              try {
+                while (iterator.hasNext) {
+                  val feature = iterator.next()
+                  val geometry = feature.getDefaultGeometry.asInstanceOf[org.locationtech.jts.geom.Geometry]
+
+                  if (geometry.contains(point)) {
+                    foundCountry = feature.getAttribute("NAME").toString
+                    println(s"🌍 Tweet Location: $foundCountry")
+                    iterator.close()
+                    foundCountry
+                  }
+                }
+              } finally {
+                iterator.close()
+              }
+              foundCountry
+            } else {
+              "Geo data not available"
             }
 
-            // Print location information
-            println(s"🌍 Location Info:")
-            println(s"  Geo: $geo")
-            println(s"  Country: $country")
+            println(s"🌍 Location Info: Country -> $country")
             println("------------------------------------------------")
 
             // Prepare new data for Kafka
-            val updatedTweet = parsedTweet + ("geo_info" -> geo, "country" -> country)
+            val updatedTweet = parsedTweet + ("country" -> country)
             val updatedTweetJson = org.json4s.jackson.Serialization.write(updatedTweet)
 
             // Send to Kafka output topic
