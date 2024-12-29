@@ -1,11 +1,11 @@
 import org.apache.kafka.clients.consumer.{ConsumerConfig, ConsumerRecords, KafkaConsumer}
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerConfig, ProducerRecord}
-import java.security.MessageDigest
 import org.json4s._
 import org.json4s.jackson.JsonMethods._
 import scala.collection.JavaConverters._
 import java.util.Properties
 import java.time.Duration
+import java.security.MessageDigest
 
 object TweetFeatureExtractionConsumer {
   def main(args: Array[String]): Unit = {
@@ -43,49 +43,62 @@ object TweetFeatureExtractionConsumer {
           val cleanedTweet = record.value()
 
           // Debugging received data
-          println("🚀 Received cleaned tweet:")
-          println(cleanedTweet)
-
           try {
             val parsedTweet = parse(cleanedTweet).extract[Map[String, Any]]
             println("📜 Parsed cleaned tweet.")
 
-            val text = parsedTweet.get("text") match {
-              case Some(t: String) => cleanText(t)
-              case _ => "N/A"
-            }
-
-            val geo = parsedTweet.get("geo") match {
-              case Some(g: String) => g
-              case _ => "N/A"
-            }
-
+            // Extract the required fields
             val user = parsedTweet.get("user") match {
               case Some(userMap: Map[String, Any]) =>
-                userMap.get("name") match {
-                  case Some(name: String) => name
-                  case _ => "N/A"
-                }
-              case _ => "N/A"
+                val userId = userMap.getOrElse("id", "N/A")
+                val screenName = userMap.getOrElse("screen_name", "N/A")
+                val name = userMap.getOrElse("name", "N/A")
+                val followersCount = userMap.getOrElse("followers_count", "N/A")
+                (userId, screenName, name, followersCount)
+              case _ => ("N/A", "N/A", "N/A", "N/A")
             }
 
-            val concatenatedFields = s"$text|$geo|$user"
-            val hashValue = computeHash(concatenatedFields)
+            val tweetDetails = parsedTweet.get("user") match {
+              case Some(userMap: Map[String, Any]) =>
+                userMap.get("tweet_details") match {
+                  case Some(tweet: Map[String, Any]) =>
+                    val tweetId = tweet.getOrElse("id", "N/A")
+                    val timestamp = tweet.getOrElse("created_at", "N/A")
+                    val geo = tweet.getOrElse("geo", "N/A")
+                    val text = tweet.getOrElse("text", "N/A")
+                    val retweetCount = tweet.getOrElse("retweetCount", 0)
+                    val favoriteCount = tweet.getOrElse("favoriteCount", 0)
+                    (tweetId, timestamp, geo, text, retweetCount, favoriteCount)
+                  case _ => ("N/A", "N/A", "N/A", "N/A", 0, 0)
+                }
+              case _ => ("N/A", "N/A", "N/A", "N/A", 0, 0)
+            }
 
-            // Print the updates
-            println(s"🔧 Update:")
-            println(s"  Text: $text")
-            println(s"  Geo: $geo")
-            println(s"  User: $user")
-            println(s"🔒 Hash: $hashValue")
-            println("------------------------------------------------")
+            // Clean and hash the text
+            val cleanedText = cleanText(tweetDetails._4.toString)
+            val hashedText = computeHash(cleanedText)
 
-            // Prepare new data for Kafka
+            // Print the extracted fields and cleaned text
+            println(s"User ID: ${user._1}")
+            println(s"Screen Name: ${user._2}")
+            println(s"Name: ${user._3}")
+            println(s"Followers Count: ${user._4}")
+            println(s"Tweet ID: ${tweetDetails._1}")
+            println(s"Timestamp: ${tweetDetails._2}")
+            println(s"Geo: ${tweetDetails._3}")
+            println(s"Retweet_Count: ${tweetDetails._5}")
+            println(s"Favorite_Count: ${tweetDetails._6}")
+            println(s"Cleaned Text: $cleanedText")
+            println(s"Text (hashed): $hashedText")
+            println("---------")
+
+            // Prepare the updated tweet with cleaned text
             val updatedTweet = Map(
-              "text" -> text,
-              "geo" -> geo,
-              "user" -> user,
-              "hash" -> hashValue
+              "text" -> cleanedText, // Use cleaned text here
+              "geo" -> tweetDetails._3,
+              "user" -> user._2,
+              "retweet_count" -> tweetDetails._5,
+              "favorite_count" -> tweetDetails._6
             )
             val updatedTweetJson = org.json4s.jackson.Serialization.write(updatedTweet)
 
@@ -114,11 +127,9 @@ object TweetFeatureExtractionConsumer {
       .trim // Remove leading and trailing spaces
   }
 
-
   def computeHash(data: String): String = {
     val md = MessageDigest.getInstance("SHA-256")
     val hashBytes = md.digest(data.getBytes("UTF-8"))
     hashBytes.map("%02x".format(_)).mkString
   }
 }
-
