@@ -1,14 +1,17 @@
-[warn] C:\Users\HP\Desktop\big\real-time-twitter-analytics\src\main\scala\GeoLocationConsumer.scala:67:30: the type test for pattern scala.collection.immutable.Map[String,Any] (the underlying of Map[String,Any]) cannot be checked at runtime because it has type parameters eliminated by erasure
+[warn] C:\Users\HP\Desktop\big3\real-time-twitter-analytics\src\main\scala\CleaningConsumerApp.scala:80:25: the type test for pattern scala.collection.immutable.Map[String,Any] (the underlying of Map[String,Any]) cannot be checked at runtime because it has type parameters eliminated by erasure
+[warn]         case Some(user: Map[String, Any]) =>
+[warn]                         ^
+[warn] C:\Users\HP\Desktop\big3\real-time-twitter-analytics\src\main\scala\CleaningConsumerApp.scala:111:23: the type test for pattern scala.collection.immutable.Map[String,Any] (the underlying of Map[String,Any]) cannot be checked at runtime because it has type parameters eliminated by erasure
+[warn]       case Some(user: Map[String, Any]) =>
+[warn]                       ^
+[warn] C:\Users\HP\Desktop\big3\real-time-twitter-analytics\src\main\scala\TweetFeatureExtractionConsumer.scala:64:34: the type test for pattern scala.collection.immutable.Map[String,Any] (the underlying of Map[String,Any]) cannot be checked at runtime because it has type parameters eliminated by erasure
+[warn]               case Some(userMap: Map[String, Any]) =>
+[warn]                                  ^
+[warn] C:\Users\HP\Desktop\big3\real-time-twitter-analytics\src\main\scala\TweetLocationConsumer.scala:66:30: the type test for pattern scala.collection.immutable.Map[String,Any] (the underlying of Map[String,Any]) cannot be checked at runtime because it has type parameters eliminated by erasure
 [warn]               case Some(map: Map[String, Any]) =>
 [warn]                              ^
-[warn] C:\Users\HP\Desktop\big\real-time-twitter-analytics\src\main\scala\GeoLocationConsumer.scala:69:37: non-variable type argument Double in type pattern List[Double] (the underlying of List[Double]) is unchecked since it is eliminated by erasure
+[warn] C:\Users\HP\Desktop\big3\real-time-twitter-analytics\src\main\scala\TweetLocationConsumer.scala:68:37: non-variable type argument Double in type pattern List[Double] (the underlying of List[Double]) is unchecked since it is eliminated by erasure
 [warn]                   case Some(coords: List[Double]) => coords
 [warn]                                     ^
-[warn] C:\Users\HP\Desktop\big\real-time-twitter-analytics\src\main\scala\KafkaProducerApp.scala:67:30: the type test for pattern scala.collection.immutable.Map[String,Any] (the underlying of Map[String,Any]) cannot be checked at runtime because it has type parameters eliminated by erasure
-[warn]               case Some(map: Map[String, Any]) =>
-[warn]                              ^
-[warn] C:\Users\HP\Desktop\big\real-time-twitter-analytics\src\main\scala\KafkaProducerApp.scala:69:37: non-variable type argument Double in type pattern List[Double] (the underlying of List[Double]) is unchecked since it is eliminated by erasure
-[warn]                   case Some(coords: List[Double]) => coords
-[warn]                                     ^
-[warn] 2 deprecations (since 2.13.0); re-run with -deprecation for details
-[warn] 5 warnings found
+[warn] 4 deprecations (since 2.13.0); re-run with -deprecation for details
+[warn] 6 warnings found

@@ -1,0 +1,24 @@
+[debug] > Exec(compile, None, None)
+[debug] Evaluating tasks: Compile / compile
+[debug] Running task... Cancel: Signal, check cycles: false, forcegc: true
+[info] compiling 6 Scala sources to C:\Users\HP\Desktop\big3\real-time-twitter-analytics\target\scala-2.13\classes ...
+[warn] C:\Users\HP\Desktop\big3\real-time-twitter-analytics\src\main\scala\CleaningConsumerApp.scala:80:25: the type test for pattern scala.collection.immutable.Map[String,Any] (the underlying of Map[String,Any]) cannot be checked at runtime because it has type parameters eliminated by erasure
+[warn]         case Some(user: Map[String, Any]) =>
+[warn]                         ^
+[warn] C:\Users\HP\Desktop\big3\real-time-twitter-analytics\src\main\scala\CleaningConsumerApp.scala:111:23: the type test for pattern scala.collection.immutable.Map[String,Any] (the underlying of Map[String,Any]) cannot be checked at runtime because it has type parameters eliminated by erasure
+[warn]       case Some(user: Map[String, Any]) =>
+[warn]                       ^
+[warn] C:\Users\HP\Desktop\big3\real-time-twitter-analytics\src\main\scala\TweetFeatureExtractionConsumer.scala:64:34: the type test for pattern scala.collection.immutable.Map[String,Any] (the underlying of Map[String,Any]) cannot be checked at runtime because it has type parameters eliminated by erasure
+[warn]               case Some(userMap: Map[String, Any]) =>
+[warn]                                  ^
+[warn] C:\Users\HP\Desktop\big3\real-time-twitter-analytics\src\main\scala\TweetLocationConsumer.scala:66:30: the type test for pattern scala.collection.immutable.Map[String,Any] (the underlying of Map[String,Any]) cannot be checked at runtime because it has type parameters eliminated by erasure
+[warn]               case Some(map: Map[String, Any]) =>
+[warn]                              ^
+[warn] C:\Users\HP\Desktop\big3\real-time-twitter-analytics\src\main\scala\TweetLocationConsumer.scala:68:37: non-variable type argument Double in type pattern List[Double] (the underlying of List[Double]) is unchecked since it is eliminated by erasure
+[warn]                   case Some(coords: List[Double]) => coords
+[warn]                                     ^
+[warn] 3 deprecations (since 2.13.0); re-run with -deprecation for details
+[warn] 6 warnings found
+[info] done compiling
+[success] Total time: 3 s, completed ٢٩‏/١٢‏/٢٠٢٤، ٥:١٥:٣٧ ص
+[debug] > Exec(idea-shell, None, None)

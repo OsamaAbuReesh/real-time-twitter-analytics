@@ -1,1 +1,1 @@
-["CleaningConsumerApp","GeoLocationConsumer","KafkaConsumerApp","KafkaProducerApp","SentimentAnalysisConsumer","TweetFeatureExtractionConsumer"]
+["CleaningConsumerApp","KafkaConsumerApp","KafkaProducerApp","SentimentAnalysisConsumer","TweetFeatureExtractionConsumer","TweetLocationConsumer"]

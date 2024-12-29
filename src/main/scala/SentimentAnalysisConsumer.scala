@@ -1,15 +1,12 @@
 import org.apache.kafka.clients.consumer.{ConsumerConfig, KafkaConsumer}
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerConfig, ProducerRecord}
-import edu.stanford.nlp.pipeline._
-import edu.stanford.nlp.ling._
-import edu.stanford.nlp.sentiment._
-import edu.stanford.nlp.util._
-import scala.jdk.CollectionConverters._
 import org.json4s._
 import org.json4s.jackson.JsonMethods._
 import java.util.Properties
 import java.time.Duration
+import scala.jdk.CollectionConverters._
 
+// Object for sentiment analysis using Kafka
 object SentimentAnalysisConsumer {
   def main(args: Array[String]): Unit = {
     val inputTopic = "cleaned_tweets_topic"
@@ -42,8 +39,23 @@ object SentimentAnalysisConsumer {
     // Configure JSON library
     implicit val formats: DefaultFormats.type = DefaultFormats
 
-    // Create the NLP pipeline
-    val pipeline = createNLPipeline()
+    // Define sentiment words (in English)
+    val happyWords = Set(
+      "happy", "joyful", "cheerful", "excited", "delighted", "elated", "glad", "fantastic",
+      "amazing", "thrilled", "overjoyed", "blissful", "content", "joyous", "ecstatic", "pleased",
+      "radiant", "great", "wonderful", "positive", "smiling"
+    )
+
+    val sadWords = Set(
+      "sad", "depressed", "down", "gloomy", "heartbroken", "mournful", "disappointed", "melancholy",
+      "painful", "hopeless", "low", "unhappy", "blue", "grief", "despair", "isolated", "sorrowful",
+      "gloom", "dismal", "regretful", "mournful", "sickened", "woeful"
+    )
+
+    val neutralWords = Set(
+      "neutral", "average", "normal", "okay", "fine", "stable", "neutral mood", "nothing special",
+      "calm", "moderate", "ordinary", "nothing new", "indifferent", "balanced", "level-headed", "standard"
+    )
 
     try {
       while (true) {
@@ -63,7 +75,7 @@ object SentimentAnalysisConsumer {
             }
 
             // Analyze sentiment
-            val sentiment = analyzeSentiment(text, pipeline)
+            val sentiment = analyzeSentiment(text, happyWords, sadWords, neutralWords)
             println(s"🔧 Sentiment: $sentiment")
 
             // Update the tweet with sentiment
@@ -86,27 +98,19 @@ object SentimentAnalysisConsumer {
     }
   }
 
-  // Create Stanford NLP pipeline
-  def createNLPipeline(): StanfordCoreNLP = {
-    val props = new Properties()
-    props.setProperty("annotators", "tokenize,ssplit,pos,lemma,parse,sentiment")
-    new StanfordCoreNLP(props)
-  }
+  // Analyze the sentiment based on keywords
+  def analyzeSentiment(text: String, happyWords: Set[String], sadWords: Set[String], neutralWords: Set[String]): String = {
+    val words = text.split(" ").map(_.trim.toLowerCase)
 
-  // Analyze the sentiment of the given text
-  def analyzeSentiment(text: String, pipeline: StanfordCoreNLP): String = {
-    val document = new Annotation(text)
-    pipeline.annotate(document)
+    val happyCount = words.count(word => happyWords.contains(word))
+    val sadCount = words.count(word => sadWords.contains(word))
+    val neutralCount = words.count(word => neutralWords.contains(word))
 
-    val sentencesJavaList = document.get(classOf[CoreAnnotations.SentencesAnnotation])
-    val sentences = sentencesJavaList.asScala
-    val sentiments = sentences.map { sentence =>
-      sentence.get(classOf[SentimentCoreAnnotations.SentimentClass])
-    }
-
-    // Determine the most common sentiment
-    if (sentiments.nonEmpty) {
-      sentiments.groupBy(identity).mapValues(_.size).maxBy(_._2)._1
+    // Determine sentiment based on the most frequent category
+    if (happyCount > sadCount && happyCount > neutralCount) {
+      "Happy"
+    } else if (sadCount > happyCount && sadCount > neutralCount) {
+      "Sad"
     } else {
       "Neutral"
     }

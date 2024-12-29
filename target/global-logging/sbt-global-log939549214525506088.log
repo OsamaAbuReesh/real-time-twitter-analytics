@@ -1,0 +1,9 @@
+[debug] > Exec(update, None, None)
+[debug] Evaluating tasks: update
+[debug] Running task... Cancel: Signal, check cycles: false, forcegc: true
+[info] downloading https://repo1.maven.org/maven2/org/json4s/json4s-native-core_2.13/4.0.3/json4s-native-core_2.13-4.0.3.jar
+[info] downloading https://repo1.maven.org/maven2/org/json4s/json4s-native_2.13/4.0.3/json4s-native_2.13-4.0.3.jar
+[info] downloaded https://repo1.maven.org/maven2/org/json4s/json4s-native_2.13/4.0.3/json4s-native_2.13-4.0.3.jar
+[info] downloaded https://repo1.maven.org/maven2/org/json4s/json4s-native-core_2.13/4.0.3/json4s-native-core_2.13-4.0.3.jar
+[success] Total time: 4 s, completed ٢٩‏/١٢‏/٢٠٢٤، ٧:٠٩:٠٥ ص
+[debug] > Exec(idea-shell, None, None)

@@ -14,13 +14,19 @@ libraryDependencies ++= Seq(
   "org.apache.spark" %% "spark-streaming" % "3.5.0",
   "org.apache.spark" %% "spark-streaming-kafka-0-10" % "3.5.0",
 
-  // NLP dependencies
-  "edu.stanford.nlp" % "stanford-corenlp" % "4.5.4",
-  "edu.stanford.nlp" % "stanford-corenlp" % "4.5.4" classifier "models",
+  // STTP Client dependency
   "com.softwaremill.sttp.client3" %% "core" % "3.8.15",
-
+  // Circe dependencies for JSON parsing
+  "io.circe" %% "circe-core" % "0.14.3",
+  "io.circe" %% "circe-generic" % "0.14.3",
+  "io.circe" %% "circe-parser" % "0.14.3",
+  "io.circe" %% "circe-literal" % "0.14.3",
+  "org.json4s" %% "json4s-native" % "4.0.3",
+  "com.softwaremill.sttp.client3" %% "core" % "3.3.16",
   // JSON handling dependencies
   "org.json4s" %% "json4s-jackson" % "4.0.6",
+
+
 
   // GeoTools dependencies
   "org.geotools" % "gt-shapefile" % "28.0" exclude ("javax.media", "jai_core"),
