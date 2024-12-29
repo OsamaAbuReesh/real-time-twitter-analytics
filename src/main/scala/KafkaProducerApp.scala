@@ -20,7 +20,7 @@ object KafkaProducerApp {
     println(s"✅ Kafka Producer connected to localhost:9092")
 
     // Path to the JSON file containing tweet data
-    val filePath = "C:\\Users\\Osama\\OneDrive\\Desktop\\fff\\boulder_flood_geolocated_tweets.json"
+    val filePath = "boulder_flood_geolocated_tweets.json"
 
     try {
       // Read the file line-by-line (handle NDJSON)

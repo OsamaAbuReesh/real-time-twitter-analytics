@@ -1,11 +1,2 @@
-[debug] Created transactional ClassFileManager with tempDir = C:\Users\HP\Desktop\big\real-time-twitter-analytics\target\scala-2.13\classes.bak
-[debug] About to delete class files:
-[debug] 	TweetLocationConsumer.class
-[debug] 	TweetLocationConsumer$.class
-[debug] We backup class files:
-[debug] 	TweetLocationConsumer.class
-[debug] 	TweetLocationConsumer$.class
-[debug] Registering generated classes:
-[debug] 	KafkaProducerApp.class
-[debug] 	KafkaProducerApp$.class
-[debug] Removing the temporary directory used for backing up class files: C:\Users\HP\Desktop\big\real-time-twitter-analytics\target\scala-2.13\classes.bak
+[debug] Created transactional ClassFileManager with tempDir = C:\Users\HP\Desktop\big3\real-time-twitter-analytics\target\scala-2.13\classes.bak
+[debug] Removing the temporary directory used for backing up class files: C:\Users\HP\Desktop\big3\real-time-twitter-analytics\target\scala-2.13\classes.bak

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id="real-time-twitter-analytics [file:/C:/Users/HP/Desktop/big/real-time-twitter-analytics/]" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="SBT" type="JAVA_MODULE" version="4">
+<module external.linked.project.id="real-time-twitter-analytics [file:/C:/Users/HP/Desktop/big3/real-time-twitter-analytics/]" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="SBT" type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_23">
     <output url="file://$MODULE_DIR$/../../target/scala-2.13/classes" />
     <output-test url="file://$MODULE_DIR$/../../target/scala-2.13/test-classes" />
@@ -22,7 +22,7 @@
         </SOURCES>
       </library>
     </orderEntry>
-    <orderEntry type="library" name="sbt: com.apple:AppleJavaExtensions:1.4:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.chuusai:shapeless_2.13:2.3.10:jar" level="project" />
     <orderEntry type="library" name="sbt: com.clearspring.analytics:stream:2.9.6:jar" level="project" />
     <orderEntry type="library" name="sbt: com.esotericsoftware:kryo-shaded:4.0.2:jar" level="project" />
     <orderEntry type="library" name="sbt: com.esotericsoftware:minlog:1.3.0:jar" level="project" />
@@ -45,8 +45,6 @@
     <orderEntry type="library" name="sbt: com.softwaremill.sttp.model:core_2.13:1.5.5:jar" level="project" />
     <orderEntry type="library" name="sbt: com.softwaremill.sttp.shared:core_2.13:1.3.13:jar" level="project" />
     <orderEntry type="library" name="sbt: com.softwaremill.sttp.shared:ws_2.13:1.3.13:jar" level="project" />
-    <orderEntry type="library" name="sbt: com.sun.istack:istack-commons-runtime:3.0.7:jar" level="project" />
-    <orderEntry type="library" name="sbt: com.sun.xml.bind:jaxb-impl:2.4.0-b180830.0438:jar" level="project" />
     <orderEntry type="library" name="sbt: com.thoughtworks.paranamer:paranamer:2.8:jar" level="project" />
     <orderEntry type="library" name="sbt: com.twitter:chill-java:0.10.0:jar" level="project" />
     <orderEntry type="library" name="sbt: com.twitter:chill_2.13:0.10.0:jar" level="project" />
@@ -56,10 +54,13 @@
     <orderEntry type="library" name="sbt: commons-io:commons-io:2.13.0:jar" level="project" />
     <orderEntry type="library" name="sbt: commons-logging:commons-logging:1.1.3:jar" level="project" />
     <orderEntry type="library" name="sbt: commons-pool:commons-pool:1.5.4:jar" level="project" />
-    <orderEntry type="library" name="sbt: de.jollyday:jollyday:0.4.9:jar" level="project" />
-    <orderEntry type="library" name="sbt: edu.stanford.nlp:stanford-corenlp:4.5.4:jar" level="project" />
-    <orderEntry type="library" name="sbt: edu.stanford.nlp:stanford-corenlp:4.5.4:models:jar" level="project" />
     <orderEntry type="library" name="sbt: io.airlift:aircompressor:0.25:jar" level="project" />
+    <orderEntry type="library" name="sbt: io.circe:circe-core_2.13:0.14.3:jar" level="project" />
+    <orderEntry type="library" name="sbt: io.circe:circe-generic_2.13:0.14.3:jar" level="project" />
+    <orderEntry type="library" name="sbt: io.circe:circe-jawn_2.13:0.14.3:jar" level="project" />
+    <orderEntry type="library" name="sbt: io.circe:circe-literal_2.13:0.14.3:jar" level="project" />
+    <orderEntry type="library" name="sbt: io.circe:circe-numbers_2.13:0.14.3:jar" level="project" />
+    <orderEntry type="library" name="sbt: io.circe:circe-parser_2.13:0.14.3:jar" level="project" />
     <orderEntry type="library" name="sbt: io.dropwizard.metrics:metrics-core:4.2.19:jar" level="project" />
     <orderEntry type="library" name="sbt: io.dropwizard.metrics:metrics-graphite:4.2.19:jar" level="project" />
     <orderEntry type="library" name="sbt: io.dropwizard.metrics:metrics-jmx:4.2.19:jar" level="project" />
@@ -90,13 +91,9 @@
     <orderEntry type="library" name="sbt: jakarta.validation:jakarta.validation-api:2.0.2:jar" level="project" />
     <orderEntry type="library" name="sbt: jakarta.ws.rs:jakarta.ws.rs-api:2.1.6:jar" level="project" />
     <orderEntry type="library" name="sbt: javax.activation:activation:1.1.1:jar" level="project" />
-    <orderEntry type="library" name="sbt: javax.activation:javax.activation-api:1.2.0:jar" level="project" />
     <orderEntry type="library" name="sbt: javax.inject:javax.inject:1:jar" level="project" />
     <orderEntry type="library" name="sbt: javax.measure:unit-api:2.0:jar" level="project" />
-    <orderEntry type="library" name="sbt: javax.servlet:javax.servlet-api:3.0.1:jar" level="project" />
-    <orderEntry type="library" name="sbt: javax.xml.bind:jaxb-api:2.4.0-b180830.0359:jar" level="project" />
     <orderEntry type="library" name="sbt: joda-time:joda-time:2.12.5:jar" level="project" />
-    <orderEntry type="library" name="sbt: junit:junit:4.10:jar" level="project" />
     <orderEntry type="library" name="sbt: net.razorvine:pickle:1.3:jar" level="project" />
     <orderEntry type="library" name="sbt: net.sf.geographiclib:GeographicLib-Java:1.49:jar" level="project" />
     <orderEntry type="library" name="sbt: net.sf.py4j:py4j:0.10.9.7:jar" level="project" />
@@ -128,11 +125,6 @@
     <orderEntry type="library" name="sbt: org.apache.logging.log4j:log4j-api:2.20.0:jar" level="project" />
     <orderEntry type="library" name="sbt: org.apache.logging.log4j:log4j-core:2.20.0:jar" level="project" />
     <orderEntry type="library" name="sbt: org.apache.logging.log4j:log4j-slf4j2-impl:2.20.0:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.apache.lucene:lucene-analyzers-common:7.5.0:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.apache.lucene:lucene-core:7.5.0:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.apache.lucene:lucene-queries:7.5.0:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.apache.lucene:lucene-queryparser:7.5.0:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.apache.lucene:lucene-sandbox:7.5.0:jar" level="project" />
     <orderEntry type="library" name="sbt: org.apache.orc:orc-core:1.9.1:shaded-protobuf:jar" level="project" />
     <orderEntry type="library" name="sbt: org.apache.orc:orc-mapreduce:1.9.1:shaded-protobuf:jar" level="project" />
     <orderEntry type="library" name="sbt: org.apache.orc:orc-shims:1.9.1:jar" level="project" />
@@ -166,14 +158,8 @@
     <orderEntry type="library" name="sbt: org.eclipse.emf:org.eclipse.emf.common:2.15.0:jar" level="project" />
     <orderEntry type="library" name="sbt: org.eclipse.emf:org.eclipse.emf.ecore.xmi:2.15.0:jar" level="project" />
     <orderEntry type="library" name="sbt: org.eclipse.emf:org.eclipse.emf.ecore:2.15.0:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.ejml:ejml-cdense:0.39:jar" level="project" />
     <orderEntry type="library" name="sbt: org.ejml:ejml-core:0.41:jar" level="project" />
     <orderEntry type="library" name="sbt: org.ejml:ejml-ddense:0.41:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.ejml:ejml-dsparse:0.39:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.ejml:ejml-fdense:0.39:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.ejml:ejml-fsparse:0.39:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.ejml:ejml-simple:0.39:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.ejml:ejml-zdense:0.39:jar" level="project" />
     <orderEntry type="library" name="sbt: org.fusesource.leveldbjni:leveldbjni-all:1.8:jar" level="project" />
     <orderEntry type="library" name="sbt: org.geotools.ogc:net.opengis.ows:28.0:jar" level="project" />
     <orderEntry type="library" name="sbt: org.geotools.ogc:org.w3.xlink:28.0:jar" level="project" />
@@ -196,14 +182,14 @@
     <orderEntry type="library" name="sbt: org.glassfish.jersey.core:jersey-common:2.40:jar" level="project" />
     <orderEntry type="library" name="sbt: org.glassfish.jersey.core:jersey-server:2.40:jar" level="project" />
     <orderEntry type="library" name="sbt: org.glassfish.jersey.inject:jersey-hk2:2.40:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.glassfish:javax.json:1.0.4:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.hamcrest:hamcrest-core:1.1:jar" level="project" />
     <orderEntry type="library" name="sbt: org.javassist:javassist:3.29.2-GA:jar" level="project" />
     <orderEntry type="library" name="sbt: org.jetbrains:annotations:17.0.0:jar" level="project" />
     <orderEntry type="library" name="sbt: org.json4s:json4s-ast_2.13:4.0.6:jar" level="project" />
     <orderEntry type="library" name="sbt: org.json4s:json4s-core_2.13:4.0.6:jar" level="project" />
     <orderEntry type="library" name="sbt: org.json4s:json4s-jackson-core_2.13:4.0.6:jar" level="project" />
     <orderEntry type="library" name="sbt: org.json4s:json4s-jackson_2.13:4.0.6:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.json4s:json4s-native-core_2.13:4.0.3:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.json4s:json4s-native_2.13:4.0.3:jar" level="project" />
     <orderEntry type="library" name="sbt: org.json4s:json4s-scalap_2.13:4.0.6:jar" level="project" />
     <orderEntry type="library" name="sbt: org.locationtech.jts:jts-core:1.19.0:jar" level="project" />
     <orderEntry type="library" name="sbt: org.lz4:lz4-java:1.8.0:jar" level="project" />
@@ -221,6 +207,9 @@
     <orderEntry type="library" name="sbt: org.slf4j:slf4j-api:2.0.7:jar" level="project" />
     <orderEntry type="library" name="sbt: org.threeten:threeten-extra:1.7.1:jar" level="project" />
     <orderEntry type="library" name="sbt: org.tukaani:xz:1.9:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.typelevel:cats-core_2.13:2.8.0:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.typelevel:cats-kernel_2.13:2.8.0:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.typelevel:jawn-parser_2.13:1.4.0:jar" level="project" />
     <orderEntry type="library" name="sbt: org.xerial.snappy:snappy-java:1.1.10.3:jar" level="project" />
     <orderEntry type="library" name="sbt: oro:oro:2.0.8:jar" level="project" />
     <orderEntry type="library" name="sbt: si.uom:si-quantity:2.0.1:jar" level="project" />
@@ -228,10 +217,5 @@
     <orderEntry type="library" name="sbt: systems.uom:systems-common:2.0.2:jar" level="project" />
     <orderEntry type="library" name="sbt: tech.units:indriya:2.0.2:jar" level="project" />
     <orderEntry type="library" name="sbt: tech.uom.lib:uom-lib-common:2.0:jar" level="project" />
-    <orderEntry type="library" name="sbt: xalan:serializer:2.7.2:jar" level="project" />
-    <orderEntry type="library" name="sbt: xalan:xalan:2.7.2:jar" level="project" />
-    <orderEntry type="library" name="sbt: xerces:xercesImpl:2.8.0:jar" level="project" />
-    <orderEntry type="library" name="sbt: xml-apis:xml-apis:1.3.04:jar" level="project" />
-    <orderEntry type="library" name="sbt: xom:xom:1.3.8:jar" level="project" />
   </component>
 </module>
