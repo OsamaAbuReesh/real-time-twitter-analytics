@@ -4,12 +4,13 @@ import org.json4s._
 import org.json4s.jackson.JsonMethods._
 import java.util.Properties
 import java.time.Duration
+import java.security.MessageDigest
 import scala.jdk.CollectionConverters._
 
 // Object for sentiment analysis using Kafka
 object SentimentAnalysisConsumer {
   def main(args: Array[String]): Unit = {
-    val inputTopic = "cleaned_tweets_topic"
+    val inputTopic = "location_tweets_topic"
     val outputTopic = "sentiment_tweets_topic"
 
     // Kafka consumer properties
@@ -69,17 +70,22 @@ object SentimentAnalysisConsumer {
           try {
             // Parse the tweet
             val parsedTweet = parse(cleanedTweet).extract[Map[String, Any]]
-            val text = parsedTweet.get("text") match {
-              case Some(t: String) => t
-              case _ => "N/A"
+
+            // Extract the cleaned text for analysis
+            val cleanedText = parsedTweet.get("cleaned_text") match {
+              case Some(text: String) => text
+              case _ => ""
             }
 
+            // Generate hash of the cleaned text
+            val textHashed = computeHash(cleanedText)
+
             // Analyze sentiment
-            val sentiment = analyzeSentiment(text, happyWords, sadWords, neutralWords)
+            val sentiment = analyzeSentiment(cleanedText, happyWords, sadWords, neutralWords)
             println(s"🔧 Sentiment: $sentiment")
 
-            // Update the tweet with sentiment
-            val updatedTweet = parsedTweet + ("sentiment" -> sentiment)
+            // Update the tweet with sentiment and hash
+            val updatedTweet = parsedTweet + ("sentiment" -> sentiment) + ("text_hashed" -> textHashed)
             val updatedTweetJson = org.json4s.jackson.Serialization.write(updatedTweet)
 
             // Send updated tweet to the output Kafka topic
@@ -114,5 +120,12 @@ object SentimentAnalysisConsumer {
     } else {
       "Neutral"
     }
+  }
+
+  // Compute hash of a given text using SHA-256
+  def computeHash(data: String): String = {
+    val md = MessageDigest.getInstance("SHA-256")
+    val hashBytes = md.digest(data.getBytes("UTF-8"))
+    hashBytes.map("%02x".format(_)).mkString
   }
 }
