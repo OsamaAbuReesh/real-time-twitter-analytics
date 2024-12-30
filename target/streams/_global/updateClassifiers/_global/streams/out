@@ -1,4 +1,4 @@
-[warn] scala-library-2.13.12-sources.jar no longer exists at C:\Users\HP\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\scala-lang\scala-library\2.13.12\scala-library-2.13.12-sources.jar
+[warn] scala-library-2.13.12-sources.jar no longer exists at C:\Users\ruaam\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\scala-lang\scala-library\2.13.12\scala-library-2.13.12-sources.jar
 [debug] not up to date. inChanged = false, force = false
-[debug] Updating ProjectRef(uri("file:/C:/Users/ruaam/IdeaProjects/real-time-twitter-analyticsFinal/"), "real-time-twitter-analyticsfinal")...
-[debug] Done updating ProjectRef(uri("file:/C:/Users/ruaam/IdeaProjects/real-time-twitter-analyticsFinal/"), "real-time-twitter-analyticsfinal")
+[debug] Updating ProjectRef(uri("file:/C:/real-time-twitter-analytics6/"), "real-time-twitter-analytics6")...
+[debug] Done updating ProjectRef(uri("file:/C:/real-time-twitter-analytics6/"), "real-time-twitter-analytics6")

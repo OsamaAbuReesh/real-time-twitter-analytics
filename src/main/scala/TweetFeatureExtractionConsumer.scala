@@ -1,6 +1,7 @@
 import org.apache.kafka.clients.consumer.{ConsumerConfig, ConsumerRecords, KafkaConsumer}
-import org.apache.kafka.clients.producer.{KafkaProducer, ProducerConfig, ProducerRecord}
+import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 import org.json4s._
+import org.json4s.jackson.Serialization
 import org.json4s.jackson.JsonMethods._
 import scala.collection.JavaConverters._
 import java.util.Properties
@@ -42,7 +43,6 @@ object TweetFeatureExtractionConsumer {
         for (record <- records.asScala) {
           val cleanedTweet = record.value()
 
-          // Debugging received data
           try {
             val parsedTweet = parse(cleanedTweet).extract[Map[String, Any]]
             println("📜 Parsed cleaned tweet.")
@@ -58,20 +58,24 @@ object TweetFeatureExtractionConsumer {
               case _ => ("N/A", "N/A", "N/A", "N/A")
             }
 
-            val tweetDetails = parsedTweet.get("user") match {
-              case Some(userMap: Map[String, Any]) =>
-                userMap.get("tweet_details") match {
-                  case Some(tweet: Map[String, Any]) =>
-                    val tweetId = tweet.getOrElse("id", "N/A")
-                    val timestamp = tweet.getOrElse("created_at", "N/A")
-                    val geo = tweet.getOrElse("geo", "N/A")
-                    val text = tweet.getOrElse("text", "N/A")
-                    val retweetCount = tweet.getOrElse("retweetCount", 0)
-                    val favoriteCount = tweet.getOrElse("favoriteCount", 0)
-                    (tweetId, timestamp, geo, text, retweetCount, favoriteCount)
-                  case _ => ("N/A", "N/A", "N/A", "N/A", 0, 0)
+            val tweetDetails = parsedTweet match {
+              case tweetMap: Map[String, Any] =>
+                val baseTweet = tweetMap.get("tweet_details") match {
+                  case Some(retweetedStatus: Map[String, Any]) => retweetedStatus
+                  case None => tweetMap
                 }
-              case _ => ("N/A", "N/A", "N/A", "N/A", 0, 0)
+
+                val tweetId = baseTweet.getOrElse("id", "N/A").toString
+                val timestamp = baseTweet.getOrElse("created_at", "N/A").toString
+                val geo = baseTweet.getOrElse("geo", "N/A").toString
+                val text = baseTweet.getOrElse("text", "N/A").toString
+                val retweetCount = baseTweet.getOrElse("retweet_count", 0).toString.toInt
+                val favoriteCount = baseTweet.getOrElse("favorite_count", 0).toString.toInt
+
+                (tweetId, timestamp, geo, text, retweetCount, favoriteCount)
+              case _ =>
+                // In case of parsing failure
+                ("N/A", "N/A", "N/A", "N/A", 0, 0)
             }
 
             // Clean and hash the text
@@ -86,21 +90,28 @@ object TweetFeatureExtractionConsumer {
             println(s"Tweet ID: ${tweetDetails._1}")
             println(s"Timestamp: ${tweetDetails._2}")
             println(s"Geo: ${tweetDetails._3}")
-            println(s"Retweet_Count: ${tweetDetails._5}")
-            println(s"Favorite_Count: ${tweetDetails._6}")
+            println(s"Retweet Count: ${tweetDetails._5}")
+            println(s"Favorite Count: ${tweetDetails._6}")
             println(s"Cleaned Text: $cleanedText")
             println(s"Text (hashed): $hashedText")
             println("---------")
 
-            // Prepare the updated tweet with cleaned text
+            // Prepare the updated tweet to store exactly what is displayed
             val updatedTweet = Map(
-              "text" -> cleanedText, // Use cleaned text here
+              "user_id" -> user._1,
+              "screen_name" -> user._2,
+              "name" -> user._3,
+              "followers_count" -> user._4,
+              "tweet_id" -> tweetDetails._1,
+              "timestamp" -> tweetDetails._2,
               "geo" -> tweetDetails._3,
-              "user" -> user._2,
               "retweet_count" -> tweetDetails._5,
-              "favorite_count" -> tweetDetails._6
+              "favorite_count" -> tweetDetails._6,
+              "cleaned_text" -> cleanedText,
+              "text_hashed" -> hashedText
             )
-            val updatedTweetJson = org.json4s.jackson.Serialization.write(updatedTweet)
+
+            val updatedTweetJson = Serialization.write(updatedTweet)
 
             // Send to Kafka output topic
             producer.send(new ProducerRecord[String, String](outputTopic, updatedTweetJson))
@@ -119,7 +130,6 @@ object TweetFeatureExtractionConsumer {
   }
 
   def cleanText(text: String): String = {
-    // Remove only the '@' and '#' characters but keep the words
     text
       .replaceAll("""@""", "") // Remove '@' but keep the word
       .replaceAll("""#""", "") // Remove '#' but keep the word
