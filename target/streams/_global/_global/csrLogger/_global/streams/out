@@ -1,4 +1,12 @@
-[info] downloading https://repo1.maven.org/maven2/org/json4s/json4s-native_2.13/4.0.3/json4s-native_2.13-4.0.3-sources.jar
-[info] downloading https://repo1.maven.org/maven2/org/json4s/json4s-native-core_2.13/4.0.3/json4s-native-core_2.13-4.0.3-sources.jar
-[info] downloaded https://repo1.maven.org/maven2/org/json4s/json4s-native_2.13/4.0.3/json4s-native_2.13-4.0.3-sources.jar
-[info] downloaded https://repo1.maven.org/maven2/org/json4s/json4s-native-core_2.13/4.0.3/json4s-native-core_2.13-4.0.3-sources.jar
+[info] downloading https://repo1.maven.org/maven2/me/filippov/dotenv-scala_2.13/2.0.0/dotenv-scala_2.13-2.0.0.pom
+[info] downloaded https://repo1.maven.org/maven2/me/filippov/dotenv-scala_2.13/2.0.0/dotenv-scala_2.13-2.0.0.pom
+[info] downloading https://repo1.maven.org/maven2/me/filippov/dotenv-scala_2.13/2.0.0/dotenv-scala_2.13-2.0.0.pom.sha1
+[info] downloaded https://repo1.maven.org/maven2/me/filippov/dotenv-scala_2.13/2.0.0/dotenv-scala_2.13-2.0.0.pom.sha1
+[info] downloading https://repo.osgeo.org/repository/release/me/filippov/dotenv-scala_2.13/2.0.0/dotenv-scala_2.13-2.0.0.pom
+[info] downloaded https://repo.osgeo.org/repository/release/me/filippov/dotenv-scala_2.13/2.0.0/dotenv-scala_2.13-2.0.0.pom
+[info] downloading https://repo.osgeo.org/repository/release/me/filippov/dotenv-scala_2.13/2.0.0/dotenv-scala_2.13-2.0.0.pom.sha1
+[info] downloaded https://repo.osgeo.org/repository/release/me/filippov/dotenv-scala_2.13/2.0.0/dotenv-scala_2.13-2.0.0.pom.sha1
+[info] downloading https://artifacts.elastic.co/maven/me/filippov/dotenv-scala_2.13/2.0.0/dotenv-scala_2.13-2.0.0.pom
+[info] downloaded https://artifacts.elastic.co/maven/me/filippov/dotenv-scala_2.13/2.0.0/dotenv-scala_2.13-2.0.0.pom
+[info] downloading https://artifacts.elastic.co/maven/me/filippov/dotenv-scala_2.13/2.0.0/dotenv-scala_2.13-2.0.0.pom.sha1
+[info] downloaded https://artifacts.elastic.co/maven/me/filippov/dotenv-scala_2.13/2.0.0/dotenv-scala_2.13-2.0.0.pom.sha1
