@@ -1,3 +1,4 @@
+
 import org.apache.kafka.clients.consumer.{ConsumerConfig, KafkaConsumer}
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.elasticsearch.client.{Request, RestClient, RestClientBuilder}

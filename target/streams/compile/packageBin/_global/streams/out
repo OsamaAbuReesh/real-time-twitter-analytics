@@ -1,0 +1,33 @@
+[debug] Packaging C:\real-time-twitter-analytics6\target\scala-2.13\realtimetwitteranalytics_2.13-0.1.jar ...
+[debug] Input file mappings:
+[debug] 	CleaningConsumerApp$.class
+[debug] 	  C:\real-time-twitter-analytics6\target\scala-2.13\classes\CleaningConsumerApp$.class
+[debug] 	CleaningConsumerApp.class
+[debug] 	  C:\real-time-twitter-analytics6\target\scala-2.13\classes\CleaningConsumerApp.class
+[debug] 	InfluencerAnalysisConsumer$.class
+[debug] 	  C:\real-time-twitter-analytics6\target\scala-2.13\classes\InfluencerAnalysisConsumer$.class
+[debug] 	InfluencerAnalysisConsumer.class
+[debug] 	  C:\real-time-twitter-analytics6\target\scala-2.13\classes\InfluencerAnalysisConsumer.class
+[debug] 	KafkaProducerApp$.class
+[debug] 	  C:\real-time-twitter-analytics6\target\scala-2.13\classes\KafkaProducerApp$.class
+[debug] 	KafkaProducerApp.class
+[debug] 	  C:\real-time-twitter-analytics6\target\scala-2.13\classes\KafkaProducerApp.class
+[debug] 	KafkaToElasticsearchConsumer$$anon$1.class
+[debug] 	  C:\real-time-twitter-analytics6\target\scala-2.13\classes\KafkaToElasticsearchConsumer$$anon$1.class
+[debug] 	KafkaToElasticsearchConsumer$.class
+[debug] 	  C:\real-time-twitter-analytics6\target\scala-2.13\classes\KafkaToElasticsearchConsumer$.class
+[debug] 	KafkaToElasticsearchConsumer.class
+[debug] 	  C:\real-time-twitter-analytics6\target\scala-2.13\classes\KafkaToElasticsearchConsumer.class
+[debug] 	SentimentAnalysisConsumer$.class
+[debug] 	  C:\real-time-twitter-analytics6\target\scala-2.13\classes\SentimentAnalysisConsumer$.class
+[debug] 	SentimentAnalysisConsumer.class
+[debug] 	  C:\real-time-twitter-analytics6\target\scala-2.13\classes\SentimentAnalysisConsumer.class
+[debug] 	TweetFeatureExtractionConsumer$.class
+[debug] 	  C:\real-time-twitter-analytics6\target\scala-2.13\classes\TweetFeatureExtractionConsumer$.class
+[debug] 	TweetFeatureExtractionConsumer.class
+[debug] 	  C:\real-time-twitter-analytics6\target\scala-2.13\classes\TweetFeatureExtractionConsumer.class
+[debug] 	TweetLocationConsumer$.class
+[debug] 	  C:\real-time-twitter-analytics6\target\scala-2.13\classes\TweetLocationConsumer$.class
+[debug] 	TweetLocationConsumer.class
+[debug] 	  C:\real-time-twitter-analytics6\target\scala-2.13\classes\TweetLocationConsumer.class
+[debug] Done packaging.

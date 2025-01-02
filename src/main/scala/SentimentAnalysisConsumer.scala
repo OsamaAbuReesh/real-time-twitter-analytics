@@ -1,3 +1,4 @@
+
 import org.apache.kafka.clients.consumer.{ConsumerConfig, KafkaConsumer}
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerConfig, ProducerRecord}
 import org.json4s._
@@ -7,7 +8,6 @@ import java.time.Duration
 import java.security.MessageDigest
 import scala.jdk.CollectionConverters._
 
-// Object for sentiment analysis using Kafka
 object SentimentAnalysisConsumer {
   def main(args: Array[String]): Unit = {
     val inputTopic = "location_tweets_topic"
@@ -50,7 +50,7 @@ object SentimentAnalysisConsumer {
     val sadWords = Set(
       "sad", "depressed", "down", "gloomy", "heartbroken", "mournful", "disappointed", "melancholy",
       "painful", "hopeless", "low", "unhappy", "blue", "grief", "despair", "isolated", "sorrowful",
-      "gloom", "dismal", "regretful", "mournful", "sickened", "woeful"
+      "gloom", "dismal", "regretful", "sickened", "woeful"
     )
 
     val neutralWords = Set(
@@ -64,8 +64,7 @@ object SentimentAnalysisConsumer {
         val records = consumer.poll(Duration.ofMillis(100)).iterator()
         for (record <- records.asScala) {
           val cleanedTweet = record.value()
-          println("🚀 Received cleaned tweet:")
-          println(cleanedTweet)
+          println("🚀 Received cleaned tweet: " + cleanedTweet)
 
           try {
             // Parse the tweet
@@ -80,12 +79,15 @@ object SentimentAnalysisConsumer {
             // Generate hash of the cleaned text
             val textHashed = computeHash(cleanedText)
 
-            // Analyze sentiment
-            val sentiment = analyzeSentiment(cleanedText, happyWords, sadWords, neutralWords)
-            println(s"🔧 Sentiment: $sentiment")
+            // Analyze sentiment and get score
+            val (sentiment, sentimentScore) = analyzeSentiment(cleanedText, happyWords, sadWords, neutralWords)
+            println(s"🔧 Sentiment: $sentiment, Score: $sentimentScore")
 
-            // Update the tweet with sentiment and hash
-            val updatedTweet = parsedTweet + ("sentiment" -> sentiment) + ("text_hashed" -> textHashed)
+            // Update the tweet with sentiment, sentiment score, and hash
+            val updatedTweet = parsedTweet +
+              ("sentiment" -> sentiment) +
+              ("sentiment_score" -> sentimentScore) +
+              ("text_hashed" -> textHashed)
             val updatedTweetJson = org.json4s.jackson.Serialization.write(updatedTweet)
 
             // Send updated tweet to the output Kafka topic
@@ -104,22 +106,31 @@ object SentimentAnalysisConsumer {
     }
   }
 
-  // Analyze the sentiment based on keywords
-  def analyzeSentiment(text: String, happyWords: Set[String], sadWords: Set[String], neutralWords: Set[String]): String = {
+  // Analyze the sentiment and calculate a sentiment score
+  def analyzeSentiment(text: String, happyWords: Set[String], sadWords: Set[String], neutralWords: Set[String]): (String, Double) = {
     val words = text.split(" ").map(_.trim.toLowerCase)
 
     val happyCount = words.count(word => happyWords.contains(word))
     val sadCount = words.count(word => sadWords.contains(word))
     val neutralCount = words.count(word => neutralWords.contains(word))
 
-    // Determine sentiment based on the most frequent category
-    if (happyCount > sadCount && happyCount > neutralCount) {
+    val totalWords = happyCount + sadCount + neutralCount
+    val sentimentScore = if (totalWords > 0) {
+      (happyCount - sadCount).toDouble / totalWords
+    } else {
+      0.0
+    }
+
+    // Determine sentiment category based on score
+    val sentiment = if (sentimentScore > 0.2) {
       "Happy"
-    } else if (sadCount > happyCount && sadCount > neutralCount) {
+    } else if (sentimentScore < -0.2) {
       "Sad"
     } else {
       "Neutral"
     }
+
+    (sentiment, sentimentScore)
   }
 
   // Compute hash of a given text using SHA-256
@@ -129,3 +140,4 @@ object SentimentAnalysisConsumer {
     hashBytes.map("%02x".format(_)).mkString
   }
 }
+
