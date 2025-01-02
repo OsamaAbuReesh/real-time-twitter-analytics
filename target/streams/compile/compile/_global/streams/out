@@ -1,0 +1,27 @@
+[warn] C:\real-time-twitter-analytics6\src\main\scala\CleaningConsumerApp.scala:68:25: the type test for pattern scala.collection.immutable.Map[String,AnyRef] (the underlying of Map[String,AnyRef]) cannot be checked at runtime because it has type parameters eliminated by erasure
+[warn]         case Some(user: Map[String, AnyRef]) =>
+[warn]                         ^
+[warn] C:\real-time-twitter-analytics6\src\main\scala\CleaningConsumerApp.scala:110:23: the type test for pattern scala.collection.immutable.Map[String,AnyRef] (the underlying of Map[String,AnyRef]) cannot be checked at runtime because it has type parameters eliminated by erasure
+[warn]       case Some(user: Map[String, AnyRef]) =>
+[warn]                       ^
+[warn] C:\real-time-twitter-analytics6\src\main\scala\CleaningConsumerApp.scala:119:26: the type test for pattern scala.collection.immutable.Map[String,AnyRef] (the underlying of Map[String,AnyRef]) cannot be checked at runtime because it has type parameters eliminated by erasure
+[warn]       case Some(details: Map[String, AnyRef]) =>
+[warn]                          ^
+[warn] C:\real-time-twitter-analytics6\src\main\scala\TweetFeatureExtractionConsumer.scala:52:34: the type test for pattern scala.collection.immutable.Map[String,Any] (the underlying of Map[String,Any]) cannot be checked at runtime because it has type parameters eliminated by erasure
+[warn]               case Some(userMap: Map[String, Any]) =>
+[warn]                                  ^
+[warn] C:\real-time-twitter-analytics6\src\main\scala\TweetFeatureExtractionConsumer.scala:64:46: the type test for pattern scala.collection.immutable.Map[String,Any] (the underlying of Map[String,Any]) cannot be checked at runtime because it has type parameters eliminated by erasure
+[warn]                   case Some(retweetedStatus: Map[String, Any]) => retweetedStatus
+[warn]                                              ^
+[warn] C:\real-time-twitter-analytics6\src\main\scala\TweetLocationConsumer.scala:68:30: the type test for pattern scala.collection.immutable.Map[String,Any] (the underlying of Map[String,Any]) cannot be checked at runtime because it has type parameters eliminated by erasure
+[warn]               case Some(map: Map[String, Any]) =>
+[warn]                              ^
+[warn] C:\real-time-twitter-analytics6\src\main\scala\TweetLocationConsumer.scala:70:37: non-variable type argument Double in type pattern List[Double] (the underlying of List[Double]) is unchecked since it is eliminated by erasure
+[warn]                   case Some(coords: List[Double]) => coords
+[warn]                                     ^
+[warn] C:\real-time-twitter-analytics6\src\main\scala\TweetFeatureExtractionConsumer.scala:63:45: match may not be exhaustive.
+[warn] It would fail on the following input: Some((x: Any forSome x not in scala.collection.immutable.Map[?,?]))
+[warn]                 val baseTweet = tweetMap.get("tweet_details") match {
+[warn]                                             ^
+[warn] 4 deprecations (since 2.13.0); re-run with -deprecation for details
+[warn] 9 warnings found

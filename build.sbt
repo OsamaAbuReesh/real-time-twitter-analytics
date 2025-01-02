@@ -38,7 +38,6 @@ libraryDependencies ++= Seq(
 
   // Elasticsearch Java Client
   "co.elastic.clients" % "elasticsearch-java" % "8.9.0",
-  "me.filippov" %% "dotenv-scala" % "2.0.0",
   // Logging dependencies (Optional)
   "org.apache.logging.log4j" % "log4j-core" % "2.20.0",
   "org.apache.logging.log4j" % "log4j-api" % "2.20.0",

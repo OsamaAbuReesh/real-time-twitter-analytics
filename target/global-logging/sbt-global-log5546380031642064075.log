@@ -1,0 +1,13 @@
+[debug] > Exec(-Ylog-classpath, None, None)
+[error] Expected symbol
+[error] Not a valid command: -
+[error] Expected end of input.
+[error] Expected '--'
+[error] Expected 'debug'
+[error] Expected 'info'
+[error] Expected 'warn'
+[error] Expected 'error'
+[error] Expected 'addPluginSbtFile'
+[error] -Ylog-classpath
+[error]  ^
+[debug] > Exec(idea-shell, None, None)

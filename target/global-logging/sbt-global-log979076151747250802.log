@@ -1,0 +1,45 @@
+[debug] > Exec(run, None, None)
+[debug] Evaluating tasks: Compile / run
+[debug] Running task... Cancel: Signal, check cycles: false, forcegc: true
+[info] compiling 7 Scala sources to C:\real-time-twitter-analytics6\target\scala-2.13\classes ...
+[warn] C:\real-time-twitter-analytics6\src\main\scala\CleaningConsumerApp.scala:68:25: the type test for pattern scala.collection.immutable.Map[String,AnyRef] (the underlying of Map[String,AnyRef]) cannot be checked at runtime because it has type parameters eliminated by erasure
+[warn]         case Some(user: Map[String, AnyRef]) =>
+[warn]                         ^
+[warn] C:\real-time-twitter-analytics6\src\main\scala\CleaningConsumerApp.scala:110:23: the type test for pattern scala.collection.immutable.Map[String,AnyRef] (the underlying of Map[String,AnyRef]) cannot be checked at runtime because it has type parameters eliminated by erasure
+[warn]       case Some(user: Map[String, AnyRef]) =>
+[warn]                       ^
+[warn] C:\real-time-twitter-analytics6\src\main\scala\CleaningConsumerApp.scala:119:26: the type test for pattern scala.collection.immutable.Map[String,AnyRef] (the underlying of Map[String,AnyRef]) cannot be checked at runtime because it has type parameters eliminated by erasure
+[warn]       case Some(details: Map[String, AnyRef]) =>
+[warn]                          ^
+[error] C:\real-time-twitter-analytics6\src\main\scala\KafkaToElasticsearchStreaming.scala:121:28: Symbol 'type org.apache.spark.sql.Encoder' is missing from the classpath.
+[error] This symbol is required by 'value org.apache.spark.sql.SQLImplicits.evidence$7'.
+[error] Make sure that type Encoder is in your classpath and check for conflicting dependencies with `-Ylog-classpath`.
+[error] A full rebuild may help if 'SQLImplicits.class' was compiled against an incompatible version of org.apache.spark.sql.
+[error]       .option("subscribe", kafkaTopic)
+[error]                            ^
+[error] C:\real-time-twitter-analytics6\src\main\scala\KafkaToElasticsearchStreaming.scala:125:71: Symbol 'type org.apache.spark.sql.Encoder' is missing from the classpath.
+[error] This symbol is required by 'value org.apache.spark.sql.Dataset.evidence$2'.
+[error] Make sure that type Encoder is in your classpath and check for conflicting dependencies with `-Ylog-classpath`.
+[error] A full rebuild may help if 'Dataset.class' was compiled against an incompatible version of org.apache.spark.sql.
+[error]     val messages = kafkaStream.selectExpr("CAST(value AS STRING)").as[String]
+[error]                                                                       ^
+[error] C:\real-time-twitter-analytics6\src\main\scala\KafkaToElasticsearchStreaming.scala:125:70: could not find implicit value for evidence parameter of type org.apache.spark.sql.Encoder[String]
+[error]     val messages = kafkaStream.selectExpr("CAST(value AS STRING)").as[String]
+[error]                                                                      ^
+[warn] C:\real-time-twitter-analytics6\src\main\scala\TweetFeatureExtractionConsumer.scala:52:34: the type test for pattern scala.collection.immutable.Map[String,Any] (the underlying of Map[String,Any]) cannot be checked at runtime because it has type parameters eliminated by erasure
+[warn]               case Some(userMap: Map[String, Any]) =>
+[warn]                                  ^
+[warn] C:\real-time-twitter-analytics6\src\main\scala\TweetFeatureExtractionConsumer.scala:64:46: the type test for pattern scala.collection.immutable.Map[String,Any] (the underlying of Map[String,Any]) cannot be checked at runtime because it has type parameters eliminated by erasure
+[warn]                   case Some(retweetedStatus: Map[String, Any]) => retweetedStatus
+[warn]                                              ^
+[warn] C:\real-time-twitter-analytics6\src\main\scala\TweetLocationConsumer.scala:68:30: the type test for pattern scala.collection.immutable.Map[String,Any] (the underlying of Map[String,Any]) cannot be checked at runtime because it has type parameters eliminated by erasure
+[warn]               case Some(map: Map[String, Any]) =>
+[warn]                              ^
+[warn] C:\real-time-twitter-analytics6\src\main\scala\TweetLocationConsumer.scala:70:37: non-variable type argument Double in type pattern List[Double] (the underlying of List[Double]) is unchecked since it is eliminated by erasure
+[warn]                   case Some(coords: List[Double]) => coords
+[warn]                                     ^
+[warn] 7 warnings found
+[error] three errors found
+[error] (Compile / compileIncremental) Compilation failed
+[error] Total time: 5 s, completed Jan 2, 2025 2:04:04 PM
+[debug] > Exec(idea-shell, None, None)

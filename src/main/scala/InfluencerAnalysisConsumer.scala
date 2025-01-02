@@ -1,3 +1,6 @@
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 import org.apache.kafka.clients.consumer.{ConsumerConfig, KafkaConsumer}
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 import org.json4s._
@@ -61,12 +64,37 @@ object InfluencerAnalysisConsumer {
             val followersCount = parsedTweet.getOrElse("followers_count", "0").toString.toInt
 
             val tweetId = parsedTweet.getOrElse("id", "N/A").toString
-            val timestamp = parsedTweet.getOrElse("timestamp", "N/A").toString
-            val geo = parsedTweet.getOrElse("geo", "N/A")
-            val text = parsedTweet.getOrElse("cleaned_text", "N/A").toString
+            val rawTimestamp = parsedTweet.getOrElse("timestamp", "N/A").toString
             val sentiment = parsedTweet.getOrElse("sentiment", "Neutral").toString
+            val sentimentScore = parsedTweet.getOrElse("sentiment_score", 0.0).asInstanceOf[Double]
+
+            // Convert timestamp to ISO 8601 format
+            val timestamp = try {
+              val formatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss Z yyyy", Locale.ENGLISH)
+              val parsedDate = ZonedDateTime.parse(rawTimestamp, formatter)
+              parsedDate.format(DateTimeFormatter.ISO_INSTANT)
+            } catch {
+              case _: Exception => rawTimestamp // Fallback to original if parsing fails
+            }
+
+            // Handle geo field and convert it to a geo_point format
+            val geo = parsedTweet.getOrElse("geo", "N/A") match {
+              case geoString: String if geoString.startsWith("Map(") =>
+                // Parse the geo string "Map(type -> Point, coordinates -> List(lat, lon))"
+                val coordinatesPattern = """coordinates -> List\(([-\d.]+), ([-\d.]+)\)""".r
+                coordinatesPattern.findFirstMatchIn(geoString) match {
+                  case Some(m) =>
+                    Map("lat" -> m.group(1).toDouble, "lon" -> m.group(2).toDouble)
+                  case None => Map("lat" -> 0.0, "lon" -> 0.0) // Default if parsing fails
+                }
+              case geoList: List[Any] =>
+                // If geo is a list, convert it to geo_point format
+                Map("lat" -> geoList.head.toString.toDouble, "lon" -> geoList(1).toString.toDouble)
+              case _ => Map("lat" -> 0.0, "lon" -> 0.0) // Default to (0, 0) if geo is not available
+            }
+
+            val text = parsedTweet.getOrElse("cleaned_text", "N/A").toString
             val textHashed = parsedTweet.getOrElse("text_hashed", "N/A").toString
-            val country = parsedTweet.getOrElse("location_info", Map()).asInstanceOf[Map[String, String]].getOrElse("country", "Unknown")
 
             // Prepare the tweet object
             val tweet = Map(
@@ -76,7 +104,7 @@ object InfluencerAnalysisConsumer {
               "text" -> text,
               "text_hashed" -> textHashed,
               "sentiment" -> sentiment,
-              "country" -> country
+              "sentiment_score" -> sentimentScore
             )
 
             // Update or create user object
@@ -100,10 +128,11 @@ object InfluencerAnalysisConsumer {
             val isInfluential = updatedUser("followers_count").asInstanceOf[Int] >= 10000 &&
               updatedUser("tweets").asInstanceOf[List[Map[String, Any]]].size >= 5
 
-            // Prepare the user analysis object
+            // Prepare the user analysis object with sentiment score
             val userAnalysis = Map(
               "user" -> updatedUser,
-              "is_influential" -> isInfluential
+              "is_influential" -> isInfluential,
+              "sentiment_score" -> sentimentScore
             )
 
             // Convert to JSON and send to Kafka
@@ -111,7 +140,7 @@ object InfluencerAnalysisConsumer {
             producer.send(new ProducerRecord[String, String](outputTopic, userAnalysisJson))
 
             // Display in console
-            println("🚀 Processed User Analysis:")
+            println("🚀 Processed User Analysis with Sentiment Score:")
             println(userAnalysisJson)
             println("------------------------------------------------")
           } catch {
@@ -128,3 +157,4 @@ object InfluencerAnalysisConsumer {
     }
   }
 }
+
