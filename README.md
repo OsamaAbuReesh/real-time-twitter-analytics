@@ -115,17 +115,24 @@ Store processed tweets in Elasticsearch for querying and visualization:
 ```bash
 sbt runMain KafkaToElasticsearchConsumer
 ```
+1. Elasticsearch Port & API (The data is sent to Elasticsearch on port `http://localhost:9200`  using the REST API)
+2. Kafka Integration (Consumed tweets from Kafka topic `user_analysis_topic`)
+3. Data Indexing (Indexed tweets into Elasticsearch index:` tweets_analysis_000`)
+4. Authentication (Used Elasticsearch Basic Authentication for secure access)
+
 
 ### **7. Visualize Data in Kibana**
 
 1. Open Kibana in your browser (default: `http://localhost:5601`).
 2. Create an index pattern for the Elasticsearch index (e.g., `tweets-index`).
 3. Build visualizations and dashboards:
+   -**Global Tweet Activity (Map)**:Displays geospatial distribution of tweets using a world map.
+   -**Tweet Activity Over Time**:A line chart showing tweet frequency over time for specific periods
    - **Sentiment Analysis**: Pie chart showing sentiment distribution.
-   - **Time Series**: Trends of tweet volume over time.
-   - **Geospatial Data**: Map of tweet locations.
-   - **Influencer Metrics**: Top users by retweets or followers.
-
+   - **Hourly Tweet Activity**:A bar chart visualizing tweet activity distributed by hours of the day.
+   - **Sentiment Distribution**:A bar chart representing the proportion of positive, negative, and neutral tweets.
+   - **Influential Users**:Shows the count of tweets by whether the user is influential.
+   - **Sentiment Analysis Visualization**:Displays the count of tweets categorized by sentiment scores.
 ---
 
 ## Key Docker Commands
