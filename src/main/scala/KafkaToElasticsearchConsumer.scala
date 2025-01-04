@@ -52,7 +52,7 @@ object KafkaToElasticsearchConsumer {
       }).build()
 
     // Index name in Elasticsearch
-    val indexName = "user_analysis1"
+    val indexName = "tweets_analysis_000"
 
     // Consume messages from Kafka and write to Elasticsearch
     try {
