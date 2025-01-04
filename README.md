@@ -377,10 +377,10 @@ sbt runMain KafkaToElasticsearchConsumer
      ```
 ## Team Members
 
-- **Osama AbuReesh**: Structure and Kafka Producer
-- **Toqa Asedah**: Elasticsearch Integration
+- **Osama AbuReesh**: Structure & Kafka Producer
+- **Toqa Asedah**: Elasticsearch Integration & Influencer Analysis
 - **Ruaa BaniOdeh**: Data Preprocessing
-- **Roaa Kittanh**: Sentiment Analysis
+- **Roaa Kittanh**: Sentiment Analysis & Tweet Location Extraction
 
 ---
 
