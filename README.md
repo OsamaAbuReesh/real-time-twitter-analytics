@@ -150,31 +150,191 @@ sbt runMain KafkaToElasticsearchConsumer
 
 ```json
 {
-  "id": "12345",
-  "text": "This is a test tweet",
-  "user": {
-    "id": "67890",
-    "name": "John Doe",
-    "followers_count": 500
+  "created_at": "Tue Dec 31 18:49:31 +0000 2013",
+  "id": 418091565161017345,
+  "id_str": "418091565161017345",
+  "text": "@WeatherDude17 Not that revved up yet due to model inconsistency. I'd say 0-2\" w/ a decent chance of >1\" #snow #COwx #weather #Denver",
+  "truncated": false,
+  "entities": {
+    "hashtags": [
+      { "text": "snow", "indices": [108, 113] },
+      { "text": "COwx", "indices": [114, 119] },
+      { "text": "weather", "indices": [120, 128] },
+      { "text": "Denver", "indices": [129, 136] }
+    ],
+    "symbols": [],
+    "user_mentions": [
+      {
+        "screen_name": "WeatherDude17",
+        "name": "WeatherDude",
+        "id": 1214463582,
+        "id_str": "1214463582",
+        "indices": [0, 14]
+      }
+    ],
+    "urls": []
   },
-  "coordinates": [40.7128, -74.0060],
-  "timestamp": "2025-01-04T12:34:56Z"
+  "source": "<a href=\"https://about.twitter.com/products/tweetdeck\" rel=\"nofollow\">TweetDeck</a>",
+  "in_reply_to_status_id": 418091408994471937,
+  "in_reply_to_status_id_str": "418091408994471937",
+  "in_reply_to_user_id": 1214463582,
+  "in_reply_to_user_id_str": "1214463582",
+  "in_reply_to_screen_name": "WeatherDude17",
+  "user": {
+    "id": 164856599,
+    "id_str": "164856599",
+    "name": "Josh Larson",
+    "screen_name": "coloradowx",
+    "location": "Denver, CO",
+    "description": "Bringing you weather information & forecasts for the Denver metro area and Colorado. Previously worked at NOAA's CPC & @capitalweather.",
+    "url": "https://t.co/TFT5G0nnPh",
+    "entities": {
+      "url": {
+        "urls": [
+          {
+            "url": "https://t.co/TFT5G0nnPh",
+            "expanded_url": "http://www.weather5280.com",
+            "display_url": "weather5280.com",
+            "indices": [0, 23]
+          }
+        ]
+      },
+      "description": { "urls": [] }
+    },
+    "protected": false,
+    "followers_count": 2181,
+    "friends_count": 458,
+    "listed_count": 199,
+    "created_at": "Fri Jul 09 23:15:25 +0000 2010",
+    "favourites_count": 14777,
+    "utc_offset": -25200,
+    "time_zone": "Mountain Time (US & Canada)",
+    "geo_enabled": true,
+    "verified": false,
+    "statuses_count": 18024,
+    "lang": "en",
+    "profile_background_color": "C0DEED",
+    "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+    "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+    "profile_background_tile": false,
+    "profile_image_url": "http://pbs.twimg.com/profile_images/910542678072238082/DYfwLSOF_normal.jpg",
+    "profile_image_url_https": "https://pbs.twimg.com/profile_images/910542678072238082/DYfwLSOF_normal.jpg",
+    "profile_link_color": "1DA1F2",
+    "profile_sidebar_border_color": "C0DEED",
+    "profile_sidebar_fill_color": "DDEEF6",
+    "profile_text_color": "333333",
+    "profile_use_background_image": true,
+    "default_profile": true,
+    "default_profile_image": false
+  },
+  "geo": null,
+  "coordinates": null,
+  "place": null,
+  "contributors": null,
+  "is_quote_status": false,
+  "retweet_count": 0,
+  "favorite_count": 0,
+  "favorited": false,
+  "retweeted": false,
+  "lang": "en"
 }
+
 ```
 
 ### **Output: Processed and Enriched Data**
 
 ```json
 {
-  "id": "12345",
-  "text": "This is a test tweet",
-  "user": "John Doe",
-  "followers_count": 500,
-  "location": [40.7128, -74.0060],
-  "sentiment": "neutral",
-  "hashtags": [],
-  "mentions": [],
-  "timestamp": "2025-01-04T12:34:56Z"
+  "_index": "tweets_analysis_000",
+  "_id": "QyW2LZQBLB3O4tb__bLx",
+  "_version": 1,
+  "_score": 0,
+  "_source": {
+    "user": {
+      "name": "John",
+      "screen_name": "constrictornews",
+      "followers_count": 340,
+      "id": "130934604",
+      "is_influential": false
+    },
+    "tweet": {
+      "timestamp": "2014-01-01T06:59:33Z",
+      "text": "Jax Fish House Boulder",
+      "id": "N/A",
+      "text_hashed": "c45afd7766cd946b7213470433959be4e5be78434d53822c55abccdc964662d0",
+      "sentiment_score": 0,
+      "geo": {
+        "lat": 40.01718,
+        "lon": -105.283146
+      },
+      "sentiment": "Neutral"
+    }
+  },
+  "fields": {
+    "tweet.geo": [
+      {
+        "coordinates": [
+          -105.283146,
+          40.01718
+        ],
+        "type": "Point"
+      }
+    ],
+    "user.is_influential": [
+      false
+    ],
+    "user.id": [
+      "130934604"
+    ],
+    "tweet.sentiment_score": [
+      0
+    ],
+    "tweet.text.keyword": [
+      "Jax Fish House Boulder"
+    ],
+    "user.name": [
+      "John"
+    ],
+    "tweet.text_hashed": [
+      "c45afd7766cd946b7213470433959be4e5be78434d53822c55abccdc964662d0"
+    ],
+    "tweet.text_hashed.keyword": [
+      "c45afd7766cd946b7213470433959be4e5be78434d53822c55abccdc964662d0"
+    ],
+    "user.id.keyword": [
+      "130934604"
+    ],
+    "tweet.timestamp": [
+      "2014-01-01T06:59:33.000Z"
+    ],
+    "tweet.id": [
+      "N/A"
+    ],
+    "user.screen_name.keyword": [
+      "constrictornews"
+    ],
+    "tweet.id.keyword": [
+      "N/A"
+    ],
+    "tweet.sentiment.keyword": [
+      "Neutral"
+    ],
+    "user.screen_name": [
+      "constrictornews"
+    ],
+    "tweet.text": [
+      "Jax Fish House Boulder"
+    ],
+    "tweet.sentiment": [
+      "Neutral"
+    ],
+    "user.name.keyword": [
+      "John"
+    ],
+    "user.followers_count": [
+      340
+    ]
+  }
 }
 ```
 
