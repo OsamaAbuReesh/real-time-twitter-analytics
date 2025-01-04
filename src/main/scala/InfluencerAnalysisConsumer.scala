@@ -6,7 +6,6 @@ import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 import org.json4s._
 import org.json4s.jackson.JsonMethods._
 import org.json4s.jackson.Serialization.write
-import scala.collection.mutable
 import scala.collection.JavaConverters._
 import java.util.Properties
 import java.time.Duration
@@ -42,9 +41,6 @@ object InfluencerAnalysisConsumer {
 
     // Configure JSON library
     implicit val formats: DefaultFormats.type = DefaultFormats
-
-    // Data structure to accumulate tweets by user
-    val userObjects: mutable.Map[String, Map[String, Any]] = mutable.Map()
 
     try {
       while (true) {
@@ -96,52 +92,36 @@ object InfluencerAnalysisConsumer {
             val text = parsedTweet.getOrElse("cleaned_text", "N/A").toString
             val textHashed = parsedTweet.getOrElse("text_hashed", "N/A").toString
 
-            // Prepare the tweet object
-            val tweet = Map(
-              "id" -> tweetId,
-              "timestamp" -> timestamp,
-              "geo" -> geo,
-              "text" -> text,
-              "text_hashed" -> textHashed,
-              "sentiment" -> sentiment,
-              "sentiment_score" -> sentimentScore
-            )
-
-            // Update or create user object
-            val updatedUser = userObjects.get(userId) match {
-              case Some(userObject) =>
-                val existingTweets = userObject.getOrElse("tweets", List()).asInstanceOf[List[Map[String, Any]]]
-                userObject + ("tweets" -> (existingTweets :+ tweet))
-              case None =>
-                Map(
-                  "id" -> userId,
-                  "name" -> userName,
-                  "screen_name" -> screenName,
-                  "followers_count" -> followersCount,
-                  "tweets" -> List(tweet)
-                )
-            }
-
-            userObjects(userId) = updatedUser
-
             // Determine if the user is influential
-            val isInfluential = updatedUser("followers_count").asInstanceOf[Int] >= 10000 &&
-              updatedUser("tweets").asInstanceOf[List[Map[String, Any]]].size >= 5
+            val isInfluential = followersCount >= 10000
 
-            // Prepare the user analysis object with sentiment score
-            val userAnalysis = Map(
-              "user" -> updatedUser,
-              "is_influential" -> isInfluential,
-              "sentiment_score" -> sentimentScore
+            // Prepare the tweet analysis object
+            val tweetAnalysis = Map(
+              "user" -> Map(
+                "id" -> userId,
+                "name" -> userName,
+                "screen_name" -> screenName,
+                "followers_count" -> followersCount,
+                "is_influential" -> isInfluential
+              ),
+              "tweet" -> Map(
+                "id" -> tweetId,
+                "timestamp" -> timestamp,
+                "geo" -> geo,
+                "text" -> text,
+                "text_hashed" -> textHashed,
+                "sentiment" -> sentiment,
+                "sentiment_score" -> sentimentScore
+              )
             )
 
             // Convert to JSON and send to Kafka
-            val userAnalysisJson = write(userAnalysis)
-            producer.send(new ProducerRecord[String, String](outputTopic, userAnalysisJson))
+            val tweetAnalysisJson = write(tweetAnalysis)
+            producer.send(new ProducerRecord[String, String](outputTopic, tweetAnalysisJson))
 
             // Display in console
-            println("🚀 Processed User Analysis with Sentiment Score:")
-            println(userAnalysisJson)
+            println("🚀 Processed Tweet Analysis:")
+            println(tweetAnalysisJson)
             println("------------------------------------------------")
           } catch {
             case e: Exception =>
@@ -157,4 +137,3 @@ object InfluencerAnalysisConsumer {
     }
   }
 }
-
