@@ -10,7 +10,6 @@ This project implements a real-time analytics pipeline for processing Twitter da
 - **Scalable Processing**: Leverages Apache Kafka for handling high-throughput data streams.
 - **Batch Processing**: Processes tweets in configurable batch sizes for efficiency.
 - **Error Handling**: Implements robust error handling for JSON parsing and Kafka message delivery.
-- **Logging**: Provides detailed logging for monitoring and debugging.
 - **Dockerized Setup**: Simplifies environment setup using Docker and Docker Compose.
 
 ---
@@ -124,11 +123,12 @@ sbt runMain KafkaToElasticsearchConsumer
 ### **7. Visualize Data in Kibana**
 
 1. Open Kibana in your browser (default: `http://localhost:5601`).
-2. Create an index pattern for the Elasticsearch index (e.g., `tweets-index`).
+2. Create an index pattern for the Elasticsearch index (e.g., `tweets_analysis_000`).
 3. Build visualizations and dashboards:
-   -**Global Tweet Activity (Map)**:Displays geospatial distribution of tweets using a world map.
-   -**Tweet Activity Over Time**:A line chart showing tweet frequency over time for specific periods
+
    - **Sentiment Analysis**: Pie chart showing sentiment distribution.
+   - **Global Tweet Activity (Map)**: Displays geospatial distribution of tweets using a world map.
+   - **Tweet Activity Over Time**: A line chart showing tweet frequency over time for specific periods
    - **Hourly Tweet Activity**:A bar chart visualizing tweet activity distributed by hours of the day.
    - **Sentiment Distribution**:A bar chart representing the proportion of positive, negative, and neutral tweets.
    - **Influential Users**:Shows the count of tweets by whether the user is influential.
