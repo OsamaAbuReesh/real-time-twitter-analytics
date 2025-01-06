@@ -24,6 +24,10 @@ This project implements a real-time analytics pipeline for processing Twitter da
 
 ---
 
+## The Pipline 
+![image](https://github.com/user-attachments/assets/db9df135-4272-4171-b2b4-8b0fe26706cc)
+
+
 ## Setup Instructions
 
 ### 1. Clone the Repository
